@@ -18,6 +18,7 @@ RUN npm install --no-audit --no-fund
 COPY . .
 RUN php artisan package:discover --ansi \
     && npm run build \
+    && touch database/database.sqlite \
     && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
