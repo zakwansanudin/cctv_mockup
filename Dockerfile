@@ -23,7 +23,10 @@ RUN php artisan package:discover --ansi \
 
 ENV APP_ENV=production
 ENV LOG_CHANNEL=stderr
+ENV SESSION_DRIVER=cookie
+ENV CACHE_STORE=array
+ENV QUEUE_CONNECTION=sync
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
+CMD ["sh", "-c", "if [ ! -f .env ]; then cp .env.example .env; fi; if [ -z \"$APP_KEY\" ]; then php artisan key:generate --force --no-interaction; fi; php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
