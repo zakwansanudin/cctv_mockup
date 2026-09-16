@@ -38,14 +38,40 @@ export default function Dashboard({ stats, latestAlert }) {
                 </div>
 
                 {latestAlert && (
-                    <div className="mb-6 bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3">
-                        <span className="mt-1 w-2.5 h-2.5 rounded-full bg-amber-500 ring-4 ring-amber-200 flex-shrink-0" />
-                        <div className="flex-1">
-                            <p className="text-sm font-semibold text-amber-800">Alert CCTV AI Terkini</p>
-                            <p className="text-sm text-amber-700 mt-0.5">{latestAlert.student_name} — {latestAlert.alert_label} di {latestAlert.location}</p>
-                            <p className="text-xs text-amber-600 mt-1">{latestAlert.date} {latestAlert.time} · {latestAlert.status}</p>
+                    <div className="mb-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 text-white shadow-sm">
+                        <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex items-start gap-4">
+                                <div className="relative mt-1 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-rose-500/15 text-rose-300">
+                                    <span className="absolute inset-0 animate-ping rounded-xl bg-rose-400/10" />
+                                    <svg className="relative h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 9v3m0 4h.01M10.3 3.9L2 18a2 2 0 001.7 3h16.6a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" />
+                                    </svg>
+                                </div>
+                                <div className="min-w-0">
+                                    <div className="mb-1 flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-rose-300">
+                                        <span>Isyarat masuk</span>
+                                        <span className="text-slate-600">•</span>
+                                        <span className="font-mono tracking-normal text-slate-400">{latestAlert.id}</span>
+                                    </div>
+                                    <p className="text-base font-semibold text-white">{latestAlert.alert_label}</p>
+                                    <p className="mt-1 text-sm text-slate-300">{latestAlert.student_name} <span className="text-slate-500">di</span> {latestAlert.location}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4 sm:pl-4">
+                                <div className="text-left sm:text-right">
+                                    <p className="font-mono text-sm text-slate-200">{latestAlert.time}</p>
+                                    <p className="mt-1 text-xs text-slate-400">{latestAlert.date} · {latestAlert.status}</p>
+                                </div>
+                                <Link href={`/events?event=${latestAlert.id}`} className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2.5 text-xs font-bold text-slate-900 transition hover:bg-rose-100">
+                                    Buka rekod
+                                    <span aria-hidden="true">↗</span>
+                                </Link>
+                            </div>
                         </div>
-                        <Link href={`/events?event=${latestAlert.id}`} className="text-xs text-amber-700 hover:text-amber-900 font-medium">Semak &rsaquo;</Link>
+                        <div className="flex items-center gap-2 border-t border-white/10 px-5 py-2.5 text-[11px] text-slate-400">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            Diterima oleh rangkaian kamera sekolah · tindakan diperlukan
+                        </div>
                     </div>
                 )}
 
