@@ -10,13 +10,14 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
 COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build \
+RUN php artisan package:discover --ansi \
+    && npm run build \
     && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
